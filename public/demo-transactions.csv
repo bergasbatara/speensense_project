@@ -1,0 +1,8 @@
+Date,Description,Amount,Category,Type
+2026-10-01,Salary,2500.00,Income,Income
+2026-10-01,Neighborhood Market,42.50,Groceries,Expense
+2026-10-02,Starbucks Downtown,5.00,Dining,Expense
+2026-10-03,Starbucks Station,5.75,Dining,Expense
+2026-10-02,Uber,18.00,Transportation,Expense
+2026-10-03,Streaming Service,10.00,Subscriptions,Expense
+2026-10-03,Lunch Cafe,15.00,Dining,Expense

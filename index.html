@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--
+  Active theme is set on the <html> element below.
+  To switch themes, change `data-theme` to any id defined in src/themes.ts.
+  Color values per theme live in src/themes.css.
+-->
+<html lang="en" data-theme="spendsense-dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>SpendSense</title>
+    <!--
+      First-paint background, keyed to the data-theme attribute above.
+      Without this the browser paints white until the CSS bundle arrives —
+      a hard flash on the dark themes. Each value mirrors --color-background
+      in src/styles.css (slate) / src/themes.css; keep them in sync when
+      adding or editing themes.
+    -->
+    <style>
+      html { background-color: #0a0a0a; color-scheme: dark; }
+      html[data-theme="spendsense-light"] { background-color: #fcfcfd; color-scheme: light; }
+      /* Add one line per theme you create, mirroring its --color-background. */
+    </style>
+    <!-- Pre-paint theme boot: honor the sidebar ThemeToggle's persisted
+         choice (localStorage['ui-theme']) before the first frame, so
+         reloads don't flash the default theme. -->
+    <script>
+      try {
+        var t = localStorage.getItem('ui-theme')
+        if (t === 'paper') t = 'spendsense-light'
+        if (t === 'slate') t = 'spendsense-dark'
+        if (t === 'spendsense-dark' || t === 'spendsense-light') document.documentElement.setAttribute('data-theme', t)
+      } catch (e) { /* private mode — keep the default */ }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
