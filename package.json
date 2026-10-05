@@ -26,11 +26,13 @@
     "validate": "tsc --noEmit && vitest run --passWithNoTests",
     "screenshot": "deepspace test screenshot",
     "type-check": "tsc --noEmit",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "ocr:assets": "node scripts/ocr-assets.mjs"
   },
   "dependencies": {
     "@base-ui/react": "~1.6.0",
     "@generouted/react-router": "^1.20.0",
+    "@tesseract.js-data/eng": "1.0.0",
     "ai": "7.0.107",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
@@ -48,6 +50,7 @@
     "remark-breaks": "^4.0.0",
     "remark-gfm": "^4.0.0",
     "tailwind-merge": "^2.6.0",
+    "tesseract.js": "7.0.0",
     "yjs": "^13.6.0",
     "zod": "^4.3.6"
   },

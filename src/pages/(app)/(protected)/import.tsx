@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { QuickEntry } from '@/components/import/quick-entry'
 import { Link } from 'react-router-dom'
 import { useMutations, useUser } from 'deepspace'
 import { Button, Checkbox, Input, Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, useToast } from '@/components/ui'
@@ -91,11 +92,12 @@ export default function ImportPage() {
     <section className="space-y-3 rounded-lg border border-border bg-card p-4">
       <Label htmlFor="csv-file">Transaction CSV</Label><Input id="csv-file" type="file" accept=".csv,text/csv" disabled={pending || !canWrite} onChange={e => { void upload(e.target.files?.[0]); e.target.value = '' }} />
       <Label htmlFor="pdf-file">PDF statement</Label><Input id="pdf-file" type="file" accept=".pdf,application/pdf" disabled={pending || !canWrite} onChange={e => { void upload(e.target.files?.[0]); e.target.value = '' }} />
-      <a className="inline-block text-sm text-primary underline" href="/demo-statement.pdf" download>Download demo PDF</a>
+      <a className="mr-4 inline-block text-sm text-primary underline" href="/demo-statement.pdf" download>Download demo PDF</a>
       <a className="inline-block text-sm text-primary underline" href="/sample-transactions.csv" download>Download sample CSV</a>
       <a className="ml-4 inline-block text-sm text-primary underline" href="/demo-transactions.csv" download>Download demo CSV</a>
       <p className="text-sm text-muted-foreground">The file is parsed in your browser. Only the rows you approve are saved.</p>
     </section>
+    <QuickEntry canWrite={canWrite && !pending} />
     {message && <p role="alert" className="rounded-lg border border-border p-4 text-sm">{message}</p>}
     {source === 'pdf' && pdfText && !rows && !result && <section className="space-y-3 rounded-lg border border-border bg-card p-4">
       <h2 className="text-lg font-semibold">Check extracted statement text</h2>

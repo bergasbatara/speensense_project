@@ -58,3 +58,9 @@ export const getCsvImportReview: ActionHandler<Env> = async ctx => {
   const job = result.data.records[0]
   return { success: true, data: job ? { status: job.data.status, rows: job.data.rows } : null }
 }
+
+export const commitDraftImport: ActionHandler<Env> = async ctx => {
+  const input = importCommitInput.safeParse(ctx.params)
+  if (!input.success || input.data.rows.length !== 1 || !['manual', 'image'].includes(input.data.rows[0].transaction.source)) return { success: false, error: 'Invalid transaction draft review' }
+  return commitImport(ctx)
+}

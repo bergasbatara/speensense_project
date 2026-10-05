@@ -13,3 +13,6 @@ src/router.ts
 src/modals.tsx
 .claude/launch.json
 .claude/worktrees
+
+# Generated, pinned OCR runtime assets; Vite stages these from node_modules.
+public/ocr/

@@ -17,6 +17,8 @@ export default defineConfig({
   testMatch: '**/*.spec.ts',
   timeout: 30_000,
   retries: 0,
+  // Tests reuse SDK-cached account sessions; sign-out invalidates that session.
+  workers: 1,
   use: {
     baseURL: BASE_URL,
     headless: true,

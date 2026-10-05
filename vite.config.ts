@@ -1,3 +1,4 @@
+import './scripts/ocr-assets.mjs'
 import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
@@ -45,7 +46,7 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    include: ['pdfjs-dist'],
+    include: ['pdfjs-dist', 'tesseract.js'],
     // generouted loads routes via `import.meta.glob`, which Vite's esbuild dep-scanner
     // does not evaluate — so every dep reachable only through the page tree (UI libs,
     // and deepspace via _app.tsx) is invisible to the cold scan, discovered late, and
