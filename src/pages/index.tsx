@@ -35,7 +35,7 @@ export default function Landing() {
         <p className="text-sm uppercase tracking-widest text-muted-foreground">{APP_NAME}</p>
         <h1 className="max-w-2xl text-5xl font-semibold leading-tight tracking-tight text-foreground sm:text-6xl">Know where your money goes.</h1>
         <p className="max-w-md text-sm text-muted-foreground">
-          Import a transaction CSV, explore your spending, and organize purchases with category changes you review and approve.
+          Import a CSV or text-based PDF statement, explore your spending, and organize purchases with category changes you review and approve.
         </p>
         <Link
           to="/home"

@@ -18,6 +18,7 @@ Open http://localhost:5180/home and sign in. The public introduction is at `/`.
 
 - Private transactions with manual create/edit/delete and inclusive filters.
 - CSV mapping and review: up to 200 rows and 2 MB, date formats, amount conventions, exclusion, duplicate-file protection, and resumable partial imports. Only reviewed rows are stored.
+- Text-based PDF import with Mozilla [PDF.js](https://mozilla.github.io/pdf.js/): browser extraction, editable extracted text, skipped-line inspection, explicit completeness/USD confirmation, and the same row review. Up to 10 MB and 20 pages. PDF files and extracted text are not uploaded; only approved rows and their file fingerprint are saved.
 - Confirmed USD totals calculated in integer cents: spending, income, net cash flow, category shares, and recent transactions. Net cash flow is not a bank balance.
 - Shared assistant tools for date context, financial summaries, transaction lookup, and category previews. No generic database write or approval tools are available to the model.
 - User-controlled category approvals: immutable reviewed snapshots, ownership checks, stale/expired review rejection, serialized execution, retry progress, and persistent decision history.
@@ -25,7 +26,7 @@ Open http://localhost:5180/home and sign in. The public introduction is at `/`.
 
 Live AI returned **Payment Required**. Model-generated answers and proposals remain **unverified** until an account has DeepSpace AI credits. Financial tools and the manual approval workflow were tested against the real backend. No simulated AI response is shown to users.
 
-PDF statements, image receipts, saved categorization rules, and natural-language transaction creation are future work.
+PDF layout support is deliberately narrow: full ISO or slash dates with a year, merchant text, and a single amount, optionally followed by CR/DR. Balance lines, multiple amounts, and two-date rows are skipped and shown for inspection. Scanned and password-protected PDFs are unsupported; use a CSV export or correct the extracted text. AI layout normalization, image receipts, saved categorization rules, and natural-language transaction creation are future work.
 
 ## Verification
 

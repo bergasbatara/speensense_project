@@ -45,6 +45,7 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
+    include: ['pdfjs-dist'],
     // generouted loads routes via `import.meta.glob`, which Vite's esbuild dep-scanner
     // does not evaluate — so every dep reachable only through the page tree (UI libs,
     // and deepspace via _app.tsx) is invisible to the cold scan, discovered late, and

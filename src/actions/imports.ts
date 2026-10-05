@@ -3,7 +3,7 @@ import type { Env } from '../../worker'
 import { canWrite } from './transactions'
 import { digestText, importCommitInput, importReviewInput } from '../lib/csv-import'
 
-export const commitCsvImport: ActionHandler<Env> = async ctx => {
+const commitImport: ActionHandler<Env> = async ctx => {
   if (!await canWrite(ctx)) return { success: false, error: 'Import is not permitted for this account' }
   const parsed = importCommitInput.safeParse(ctx.params)
   if (!parsed.success) return { success: false, error: 'Fix invalid or repeated rows before saving' }
@@ -24,7 +24,7 @@ export const commitCsvImport: ActionHandler<Env> = async ctx => {
   if (JSON.stringify(job.data.rows) !== JSON.stringify(input.rows)) return { success: false, error: 'This file has a partially saved import. Retry with the original approved rows.' }
   let saved = 0
   for (const row of input.rows) {
-    const id = `csv-${await digestText(`${ctx.userId}:${input.fileDigest}:${row.rowNumber}`)}`
+    const id = `${row.transaction.source}-${await digestText(`${ctx.userId}:${input.fileDigest}:${row.rowNumber}`)}`
     const existing = await ctx.tools.get('transactions', id)
     if (existing.success) {
       if (existing.data.record.data.userId !== ctx.userId) return { success: false, error: 'Import ownership mismatch' }
@@ -39,6 +39,16 @@ export const commitCsvImport: ActionHandler<Env> = async ctx => {
   if (!result.success) return { success: false, error: 'Transactions saved, but import confirmation failed. Retry to confirm without duplicating rows.' }
   return { success: true, data: { importId: job.recordId, count: saved, alreadyImported: false } }
 }
+
+function commitSource(source: 'csv' | 'pdf'): ActionHandler<Env> {
+  return async ctx => {
+    const input = importCommitInput.safeParse(ctx.params)
+    if (!input.success || input.data.rows.some(row => row.transaction.source !== source)) return { success: false, error: `Invalid ${source.toUpperCase()} import review` }
+    return commitImport(ctx)
+  }
+}
+export const commitCsvImport = commitSource('csv')
+export const commitPdfImport = commitSource('pdf')
 
 export const getCsvImportReview: ActionHandler<Env> = async ctx => {
   const parsed = importReviewInput.safeParse(ctx.params)

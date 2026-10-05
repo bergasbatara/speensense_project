@@ -82,10 +82,10 @@ export function buildReview(table: CsvTable, mapping: ColumnMapping, dateFormat:
   })
 }
 
-export function validateReviewRow(row: ReviewRow): { data?: TransactionInput; errors: string[] } {
+export function validateReviewRow(row: ReviewRow, source: 'csv' | 'pdf' = 'csv'): { data?: TransactionInput; errors: string[] } {
   let amountMinor: number
   try { amountMinor = parseAmount(row.amount) } catch (e) { return { errors: [(e as Error).message] } }
-  const result = transactionInput.safeParse({ date: row.date, merchant: row.merchant, amountMinor, category: row.category, direction: row.direction, currency: 'USD', source: 'csv', status: 'confirmed' })
+  const result = transactionInput.safeParse({ date: row.date, merchant: row.merchant, amountMinor, category: row.category, direction: row.direction, currency: 'USD', source, status: 'confirmed' })
   return result.success ? { data: result.data, errors: [] } : { errors: result.error.issues.map(i => `${String(i.path[0])}: ${i.message}`) }
 }
 
@@ -94,7 +94,7 @@ export const importReviewInput = z.object({ fileDigest: z.string().regex(/^[a-f0
 export const importCommitInput = z.object({
   fileDigest: importReviewInput.shape.fileDigest,
   fileName: z.string().trim().min(1).max(200),
-  rows: z.array(z.object({ rowNumber: z.number().int().min(2).max(MAX_IMPORT_ROWS + 1), transaction: transactionInput.extend({ source: z.literal('csv'), status: z.literal('confirmed') }) }).strict()).min(1).max(MAX_IMPORT_ROWS),
+  rows: z.array(z.object({ rowNumber: z.number().int().min(2).max(MAX_IMPORT_ROWS + 1), transaction: transactionInput.extend({ source: z.enum(['csv', 'pdf']), status: z.literal('confirmed') }) }).strict()).min(1).max(MAX_IMPORT_ROWS),
 }).strict().refine(v => new Set(v.rows.map(r => r.rowNumber)).size === v.rows.length, 'Row numbers must be unique')
 
 export async function digestText(text: string): Promise<string> {

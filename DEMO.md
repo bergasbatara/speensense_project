@@ -13,6 +13,8 @@ To repeat, approve a Starbucks review back to Dining first. To demonstrate cance
 
 ## Optional AI segment
 
+For the PDF import segment, download `/demo-statement.pdf` from Import. Use it **instead of** the demo CSV in a fresh ledger: the two fixtures represent the same seven records, and duplicate protection is per file, not across formats. Inspect extracted text and skipped headers, confirm completeness/USD, review rows, assign categories as needed, and save. Expect the same $96.25 expense and $2,500.00 income totals. Extracted PDF categories start as Uncategorized; choose categories during review before demonstrating recategorization.
+
 Include only after successfully verifying an account with DeepSpace AI credits. Ask “How much did I spend in October 2026?” ($96.25 in the isolated demo), then “Propose categorizing my Starbucks transactions in October 2026 as Coffee & Drinks.” Review, approve, and show the update.
 
 Without credits, say: “The assistant and its financial tools are integrated, but live model generation is not verified because the account requires credits. I will demonstrate the tested review and approval workflow directly.” Do not present a manual review as AI-generated.

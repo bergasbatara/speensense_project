@@ -141,7 +141,7 @@ test('CSV review corrects and excludes rows, saves privately, and prevents repla
   const marker = `__test-${Date.now()}__ Import`
   const csv = `Date,Description,Amount\n2026-10-02,"${marker}, cafe",-12.50\n2026-02-30,${marker} market,-5.75\n2026-10-02,${marker} excluded,-9.99\n`
   await alice.page.goto('/import')
-  await expect(alice.page.getByRole('heading', { name: 'Import CSV', exact: true })).toBeVisible()
+  await expect(alice.page.getByRole('heading', { name: 'Import transactions', exact: true })).toBeVisible()
   await alice.page.getByLabel('Transaction CSV', { exact: true }).setInputFiles({ name: `${marker}.csv`, mimeType: 'text/csv', buffer: Buffer.from(csv) })
   await alice.page.getByRole('button', { name: 'Review transactions' }).click()
   await expect(alice.page.getByRole('button', { name: 'Approve and save 3 transactions' })).toBeDisabled()

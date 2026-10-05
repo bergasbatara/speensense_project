@@ -25,7 +25,7 @@ declare const __DEEPSPACE_SITE_ORIGIN__: string | undefined
 
 export const seo = {
   title: `${APP_NAME} | Understand your spending`,
-  description: 'Import transaction CSVs, explore spending by category, and review category changes before approving them in your private SpendSense workspace.',
+  description: 'Import CSVs and text-based PDF statements, explore spending by category, and approve category changes in your private SpendSense workspace.',
   /** Public origin for canonical URLs, og:url, and the sitemap — no trailing
    *  slash. Replace with the custom domain once one is attached, e.g.
    *  'https://www.example.com'. */

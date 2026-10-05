@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test'
 
 test.describe('API tests', () => {
-  for (const name of ['createTransaction', 'updateTransaction', 'deleteTransaction', 'listTransactions', 'getSpendingSummary', 'commitCsvImport', 'getCsvImportReview', 'proposeCategoryChange', 'approveCategoryChange', 'cancelCategoryChange']) {
+  for (const name of ['createTransaction', 'updateTransaction', 'deleteTransaction', 'listTransactions', 'getSpendingSummary', 'commitCsvImport', 'commitPdfImport', 'getCsvImportReview', 'proposeCategoryChange', 'approveCategoryChange', 'cancelCategoryChange']) {
     test(`${name} requires authentication`, async ({ request }) => {
       const response = await request.post(`/api/actions/${name}`, { data: {} })
       expect(response.status()).toBe(401)
