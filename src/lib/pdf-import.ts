@@ -53,7 +53,7 @@ export async function extractPdfText(buffer: ArrayBuffer): Promise<string> {
   if (buffer.byteLength > MAX_PDF_BYTES) throw new Error('PDF must be 10 MB or smaller')
   if (!new TextDecoder().decode(buffer.slice(0, 8)).startsWith('%PDF-')) throw new Error('This file is not a PDF')
   const pdfjs = await import('pdfjs-dist')
-  const { default: workerSrc } = await import('pdfjs-dist/build/pdf.worker.min.mjs?url')
+  const { default: workerSrc } = await import('pdfjs-dist/build/pdf.worker.min.mjs?worker&url')
   pdfjs.GlobalWorkerOptions.workerSrc = workerSrc
   const task = pdfjs.getDocument({ data: new Uint8Array(buffer), stopAtErrors: true, disableFontFace: true, useSystemFonts: false, verbosity: 0 })
   const timer = setTimeout(() => { void task.destroy() }, 30_000)
